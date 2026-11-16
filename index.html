@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CS-LITE · 沙漠突围</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="damageVignette"></div>
+
+    <div id="crosshair">
+      <span class="ch up"></span>
+      <span class="ch down"></span>
+      <span class="ch left"></span>
+      <span class="ch right"></span>
+      <span id="hitmarker"></span>
+    </div>
+
+    <div id="scope">
+      <span class="scope-h"></span>
+      <span class="scope-v"></span>
+    </div>
+
+    <div id="vitals" class="hud-panel">
+      <div class="stat">
+        <span class="stat-ico hp">✚</span>
+        <span class="stat-val" id="hpVal">100</span>
+      </div>
+      <div class="stat armor">
+        <span class="stat-ico ap">⛨</span>
+        <span class="stat-val" id="armorVal">100</span>
+      </div>
+    </div>
+
+    <div id="protect" class="hidden">复活保护 <b id="protectVal">3</b>s</div>
+
+    <div id="objective">
+      <div id="roundLabel">第 1 回合</div>
+      <div class="obj-row"><span>敌人</span><b id="enemyVal">3</b></div>
+      <div class="obj-row"><span>击杀</span><b id="killVal">0</b></div>
+    </div>
+
+    <div id="ammoPanel" class="hud-panel">
+      <div id="weaponName">AK-47</div>
+      <div class="ammo-line">
+        <span id="ammoMag">30</span>
+        <span class="ammo-sep">/</span>
+        <span id="ammoReserve">120</span>
+      </div>
+      <div id="reloadBar" class="reload-bar hidden"><i></i></div>
+    </div>
+
+    <div id="killfeed"></div>
+
+    <div id="killAnnounce" class="hidden">
+      <div class="ka-en"></div>
+      <div class="ka-zh"></div>
+    </div>
+  </div>
+
+  <div id="banner" class="hidden">
+    <div id="bannerTitle"></div>
+    <div id="bannerSub"></div>
+  </div>
+
+  <div id="scoreboard" class="hidden">
+    <div class="sb-panel">
+      <h2>计分板</h2>
+      <div class="sb-grid">
+        <div class="sb-item"><span>击杀</span><b id="sbKills">0</b></div>
+        <div class="sb-item"><span>死亡</span><b id="sbDeaths">0</b></div>
+        <div class="sb-item"><span>命中率</span><b id="sbAccuracy">—</b></div>
+        <div class="sb-item"><span>回合</span><b id="sbRound">1</b></div>
+        <div class="sb-item"><span>剩余敌人</span><b id="sbEnemies">3</b></div>
+      </div>
+      <p class="sb-tip">松开 Tab 关闭</p>
+    </div>
+  </div>
+
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <h1>CS<span>-LITE</span></h1>
+      <p class="sub">沙漠突围 · 单人 Bot 对战</p>
+
+      <div class="keys">
+        <div class="key-row"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>移动</span></div>
+        <div class="key-row"><kbd>鼠标</kbd><span>瞄准</span></div>
+        <div class="key-row"><kbd>左键</kbd><span>射击</span></div>
+        <div class="key-row"><kbd>右键</kbd><span>开镜（AWP）</span></div>
+        <div class="key-row"><kbd>R</kbd><span>换弹</span></div>
+        <div class="key-row"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><span>切换武器</span></div>
+        <div class="key-row"><kbd>Shift</kbd><span>静步</span></div>
+        <div class="key-row"><kbd>Ctrl</kbd><span>蹲下</span></div>
+        <div class="key-row"><kbd>空格</kbd><span>跳跃</span></div>
+        <div class="key-row"><kbd>Tab</kbd><span>计分板</span></div>
+        <div class="key-row"><kbd>Esc</kbd><span>暂停</span></div>
+      </div>
+
+      <button id="startBtn">点击进入战场</button>
+      <p class="hint">进入后鼠标将被锁定，按 Esc 可随时暂停</p>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay hidden">
+    <div class="panel small">
+      <h2>已暂停</h2>
+      <p class="sub">调整一下呼吸，敌人还在等你</p>
+      <button id="resumeBtn">继续战斗</button>
+      <p class="hint">点击任意位置继续</p>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
